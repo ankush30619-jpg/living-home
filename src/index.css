@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&family=Great+Vibes&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-display: "Cinzel", Times, serif;
+  --font-sans: "Montserrat", sans-serif;
+  --font-script: "Great Vibes", cursive;
+  
+  --color-ivory: #F8F6F2;
+  --color-beige: #D8C7AA;
+  --color-gold: #C6A46A;
+  --color-gold-hover: #B08F55;
+  --color-charcoal: #2D2D2D;
+  --color-navy: #10223B;
+  --color-gold-light: #E8D5B0;
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+html, body {
+  background-color: #F8F6F2;
+  color: #1a1a1a;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  cursor: none; /* Hide standard cursor for the luxury custom cursor */
+}
+
+/* Custom cursor media query - disable custom cursor on touch/hoverless devices */
+@media (pointer: coarse) {
+  html, body {
+    cursor: auto;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F8F6F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #C6A46A;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #10223B;
+}
+

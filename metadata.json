@@ -1,0 +1,6 @@
+{
+  "name": "Living Home Design Studio",
+  "description": "High-fidelity architectural & luxury interior design showcase for Living Home Design Studio, featuring immersive 3D, beautiful interactive before/after sliders, Vastu consultations, and cinematic motion transitions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
