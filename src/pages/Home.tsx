@@ -472,7 +472,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
       <ScrollExpandMedia
         mediaType="video"
         mediaSrc="/videos/minimalist_living_room_calm.mp4"
-        bgImageSrc="/src/assets/images/luxury_villa_new.png"
+        bgImageSrc="/images/luxury_villa_new.png"
         title="Cinematic Architecture"
         date="Bespoke Showcase"
         scrollToExpand="Scroll down to expand presentation"

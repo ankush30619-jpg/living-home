@@ -7,10 +7,10 @@ import { Project, Testimonial, BlogPost, ServiceDetail } from './types';
 
 // Images we generated beautifully
 export const IMAGES = {
-  heroRoom: '/src/assets/images/hero_luxury_room_1781680604934.jpg',
-  villaExterior: '/src/assets/images/villa_exterior_1781680623104.jpg',
-  studioWorkspace: '/src/assets/images/studio_workspace_1781680646359.jpg',
-  farmhouseExterior: '/src/assets/images/farmhouse_exterior_1781680666730.jpg',
+  heroRoom: '/images/hero_luxury_room_1781680604934.jpg',
+  villaExterior: '/images/villa_exterior_1781680623104.jpg',
+  studioWorkspace: '/images/studio_workspace_1781680646359.jpg',
+  farmhouseExterior: '/images/farmhouse_exterior_1781680666730.jpg',
   
   // Stable ultra-high quality Unsplash URLs for other views
   statuarioLiving: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80',
