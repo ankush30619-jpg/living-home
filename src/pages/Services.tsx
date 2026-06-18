@@ -7,6 +7,7 @@ import { Page } from '../types';
 import { SERVICES, IMAGES } from '../data';
 import { Compass, PenTool, Layout, Award, MapPin, CheckSquare, Calendar, ChevronRight } from 'lucide-react';
 import { motion } from 'motion/react';
+import { FeatureCarousel } from '../components/ui/feature-carousel';
 
 interface ServicesProps {
   setCurrentPage: (page: Page) => void;
@@ -63,7 +64,21 @@ export default function Services({ setCurrentPage }: ServicesProps) {
         </div>
       </section>
 
-      {/* 2. ALTERNATING SPLIT DETAILED SERVICES */}
+      {/* 2. INTERACTIVE SPECIALTY CAROUSEL */}
+      <section className="bg-ivory py-20 px-4 md:px-8 border-b border-gold/10 relative z-10">
+        <div className="max-w-7xl mx-auto flex flex-col gap-10">
+          <div className="text-center flex flex-col gap-2 max-w-2xl mx-auto">
+            <span className="text-[10px] font-display uppercase tracking-[0.25em] text-gold font-semibold">WHAT WE OFFER</span>
+            <h2 className="font-serif text-4xl md:text-5xl tracking-wide font-medium text-navy">Ten Pillars of Craft</h2>
+            <p className="text-xs text-neutral-500 font-sans leading-relaxed max-w-lg mx-auto mt-1">
+              Every service at Living Home is an obsession with precision, beauty and lasting value — explore our complete range.
+            </p>
+          </div>
+          <FeatureCarousel />
+        </div>
+      </section>
+
+      {/* 3. ALTERNATING SPLIT DETAILED SERVICES */}
       <section className="bg-ivory text-navy flex flex-col relative z-10">
         {SERVICES.map((s, idx) => {
           const isEven = idx % 2 === 0;

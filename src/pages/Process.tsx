@@ -11,6 +11,7 @@ import {
   MapPin, ShieldCheck, Heart, UserCheck, CalendarDays, Key, Plus, Minus
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { ScrollImagePair } from '../components/ui/scroll-image-pair';
 
 interface ProcessProps {
   setCurrentPage: (page: Page) => void;
@@ -161,6 +162,14 @@ export default function Process({ setCurrentPage }: ProcessProps) {
           })}
         </div>
       </section>
+
+      {/* Scroll image reveal — between timeline & FAQ */}
+      <ScrollImagePair
+        image1={IMAGES.constructionPerfect}
+        image2={IMAGES.studioWorkspace}
+        alt1="Construction process"
+        alt2="Design studio workspace"
+      />
 
       {/* 3.faq ACCORDION BLOCK */}
       <section className="py-20 bg-white text-navy px-4 md:px-8 relative z-10 border-b border-gold/10">

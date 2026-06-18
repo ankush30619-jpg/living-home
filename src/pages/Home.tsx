@@ -16,6 +16,13 @@ import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import VastuSection from '../components/VastuSection';
 import { ContainerTextFlip } from '../components/ui/container-text-flip';
 import ScrollExpandMedia from '../components/ui/scroll-expansion-hero';
+import { SpotlightCard } from '../components/ui/spotlight-card';
+import { Magnetic } from '../components/ui/magnetic';
+import { ShimmerBadge } from '../components/ui/shimmer-badge';
+import { Tilt3DCard } from '../components/ui/tilt-3d-card';
+import { AmbientParticles } from '../components/ui/ambient-particles';
+import { GradientText } from '../components/ui/gradient-text';
+import { ParticleCanvasBg } from '../components/ui/particle-canvas-bg';
 
 interface HomeProps {
   setCurrentPage: (page: Page) => void;
@@ -80,6 +87,15 @@ export default function Home({ setCurrentPage }: HomeProps) {
     return () => observer.disconnect();
   }, [statsViewed]);
 
+  const heroContainer = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.13, delayChildren: 0.15 } }
+  };
+  const heroItem = {
+    hidden: { opacity: 0, y: 28, filter: 'blur(12px)' },
+    show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94] } }
+  };
+
   const handleNavClick = (pageId: Page) => {
     setCurrentPage(pageId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -103,7 +119,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
         <div className="absolute inset-0 w-full h-full overflow-hidden select-none pointer-events-none">
           <video
             ref={heroVideoRef}
-            src="https://me7aitdbxq.ufs.sh/f/2wsMIGDMQRdYuZ5R8ahEEZ4aQK56LizRdfBSqeDMsmUIrJN1"
+            src="/videos/hero_background.mp4"
             autoPlay
             muted
             loop
@@ -115,49 +131,65 @@ export default function Home({ setCurrentPage }: HomeProps) {
         </div>
         {/* Dark Elegant Gradient Layer */}
         <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/60 to-transparent" />
+        {/* Gold particle canvas background */}
+        <ParticleCanvasBg />
+        {/* Ambient gold dust particles */}
+        <AmbientParticles count={60} color="198, 164, 106" className="z-[1]" />
 
-        <div className="max-w-7xl mx-auto px-4 md:px-8 w-full relative z-20 text-ivory flex flex-col items-start gap-4 mt-12">
-          <div className="flex items-center gap-2 mb-1">
+        <motion.div
+          className="max-w-7xl mx-auto px-4 md:px-8 w-full relative z-20 text-ivory flex flex-col items-start gap-4 mt-12"
+          variants={heroContainer}
+          initial="hidden"
+          animate="show"
+        >
+          <motion.div variants={heroItem} className="flex items-center gap-2 mb-1">
             <span className="h-[1px] w-8 bg-gold" />
             <span className="text-[10px] font-display uppercase tracking-[0.22em] text-gold font-medium">
               ARCHITECTURE · INTERIOR · FERM
             </span>
-          </div>
+          </motion.div>
 
-          <p className="font-script text-3xl text-gold pl-1 tracking-wide">
+          <motion.p variants={heroItem} className="font-script text-3xl text-gold pl-1 tracking-wide">
             thoughtful design. timeless living.
-          </p>
+          </motion.p>
 
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight max-w-[850px] font-light flex flex-wrap items-center gap-x-3 gap-y-1">
-            <span>Designing Spaces for</span>
-            <ContainerTextFlip
-              words={["Timeless Living", "Bespoke Design", "Vastu Harmony", "Boutique Luxury", "Zen Serenity"]}
-              className="bg-transparent border-none text-gold shadow-none pt-0 pb-0 text-4xl md:text-6xl lg:text-7xl"
-              textClassName="text-gold font-serif font-light tracking-wide italic"
-              interval={2500}
-            />
-          </h1>
+          <motion.div variants={heroItem}>
+            <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight max-w-[850px] font-light flex flex-wrap items-center gap-x-3 gap-y-1">
+              <span className="text-ivory/90">Designing Spaces for</span>
+              <GradientText animate className="font-serif font-light tracking-wide">
+                <ContainerTextFlip
+                  words={["Timeless Living", "Bespoke Design", "Vastu Harmony", "Boutique Luxury", "Zen Serenity"]}
+                  className="bg-transparent border-none shadow-none pt-0 pb-0 text-4xl md:text-6xl lg:text-7xl"
+                  textClassName="font-serif font-light tracking-wide italic"
+                  interval={2500}
+                />
+              </GradientText>
+            </h1>
+          </motion.div>
 
-          <p className="text-sm md:text-base text-ivory/80 font-sans font-light max-w-lg leading-relaxed mt-2 pl-1">
+          <motion.p variants={heroItem} className="text-sm md:text-base text-ivory/80 font-sans font-light max-w-lg leading-relaxed mt-2 pl-1">
             Luxury Architecture, Premium Interiors, and harmonious Vastu consultancy crafted with absolute elegance, functional precision, and artistic integrity across India.
-          </p>
+          </motion.p>
 
-          {/* CTA Group */}
-          <div className="flex flex-wrap items-center gap-4 mt-6 pl-1 w-full">
-            <button
-              onClick={() => handleNavClick('contact')}
-              className="bg-gold hover:bg-navy text-navy hover:text-gold hover:border hover:border-gold/30 text-xs font-sans font-semibold uppercase tracking-[0.15em] px-8 py-4 px-10 rounded-sm transition-all duration-400 shadow-lg"
-            >
-              Book Consultation
-            </button>
-            <button
-              onClick={() => handleNavClick('portfolio')}
-              className="border border-ivory/40 hover:border-gold hover:bg-gold hover:text-navy text-xs font-sans font-semibold uppercase tracking-[0.15em] px-8 py-4 px-10 rounded-sm transition-all duration-400"
-            >
-              View Our Projects
-            </button>
-          </div>
-        </div>
+          <motion.div variants={heroItem} className="flex flex-wrap items-center gap-4 mt-6 pl-1 w-full">
+            <Magnetic strength={0.4}>
+              <button
+                onClick={() => handleNavClick('contact')}
+                className="bg-gold hover:bg-navy text-navy hover:text-gold hover:border hover:border-gold/30 text-xs font-sans font-semibold uppercase tracking-[0.15em] px-8 py-4 rounded-sm transition-all duration-400 shadow-lg"
+              >
+                Book Consultation
+              </button>
+            </Magnetic>
+            <Magnetic strength={0.4}>
+              <button
+                onClick={() => handleNavClick('portfolio')}
+                className="border border-ivory/40 hover:border-gold hover:bg-gold hover:text-navy text-xs font-sans font-semibold uppercase tracking-[0.15em] px-8 py-4 rounded-sm transition-all duration-400"
+              >
+                View Our Projects
+              </button>
+            </Magnetic>
+          </motion.div>
+        </motion.div>
 
         {/* Floating Scroll mouse down indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 select-none pointer-events-none">
@@ -168,6 +200,25 @@ export default function Home({ setCurrentPage }: HomeProps) {
         </div>
       </section>
 
+      {/* 1.5 MARQUEE STRIP */}
+      <section className="overflow-hidden bg-ivory border-b border-gold/15 py-4 select-none">
+        <div
+          className="flex whitespace-nowrap"
+          style={{ animation: 'marquee 30s linear infinite' }}
+        >
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="flex items-center gap-10 shrink-0 pr-10">
+              {['Bespoke Architecture', 'Luxury Interiors', 'Vastu Consultancy', 'Turnkey Solutions', 'Landscape Design', '3D Visualization', 'Bespoke Furniture'].map(label => (
+                <span key={label} className="flex items-center gap-3 text-[10px] font-display uppercase tracking-[0.3em] text-navy/35 whitespace-nowrap">
+                  <span className="w-1 h-1 rounded-full bg-gold shrink-0 inline-block" />
+                  {label}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* 2. STATS SECTION (Deep Navy Strip) */}
       <section 
         ref={statsRef}
@@ -175,26 +226,27 @@ export default function Home({ setCurrentPage }: HomeProps) {
       >
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center text-center divide-x divide-gold/15">
-            <div className="flex flex-col gap-1.5 p-2">
-              <span className="font-serif text-3xl md:text-4xl lg:text-5xl text-gold font-light">{counts[0]}+</span>
-              <span className="font-display text-[9px] md:text-[10px] uppercase tracking-widest text-[#F0EBE3]/75">Projects Completed</span>
-            </div>
-            <div className="flex flex-col gap-1.5 p-2 border-none sm:border-l">
-              <span className="font-serif text-3xl md:text-4xl lg:text-5xl text-gold font-light">{counts[1]}+</span>
-              <span className="font-display text-[9px] md:text-[10px] uppercase tracking-widest text-[#F0EBE3]/75">Years of Excellence</span>
-            </div>
-            <div className="flex flex-col gap-1.5 p-2">
-              <span className="font-serif text-3xl md:text-4xl lg:text-5xl text-gold font-light">{counts[2]}</span>
-              <span className="font-display text-[9px] md:text-[10px] uppercase tracking-widest text-[#F0EBE3]/75">Cities Across India</span>
-            </div>
-            <div className="flex flex-col gap-1.5 p-2">
-              <span className="font-serif text-3xl md:text-4xl lg:text-5xl text-gold font-light">{counts[3]}+</span>
-              <span className="font-display text-[9px] md:text-[10px] uppercase tracking-widest text-[#F0EBE3]/75">Happy Families</span>
-            </div>
-            <div className="flex flex-col gap-1.5 p-2 col-span-2 md:col-span-1">
-              <span className="font-serif text-3xl md:text-4xl lg:text-5xl text-gold font-light">{counts[4]}</span>
-              <span className="font-display text-[9px] md:text-[10px] uppercase tracking-widest text-[#F0EBE3]/75">Core Verticals</span>
-            </div>
+            {[
+              { val: counts[0], suffix: '+', label: 'Projects Completed' },
+              { val: counts[1], suffix: '+', label: 'Years of Excellence' },
+              { val: counts[2], suffix: '',  label: 'Cities Across India' },
+              { val: counts[3], suffix: '+', label: 'Happy Families' },
+              { val: counts[4], suffix: '',  label: 'Core Verticals' },
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                className={`flex flex-col gap-1.5 p-2 ${i === 4 ? 'col-span-2 md:col-span-1' : ''} ${i === 1 ? 'border-none sm:border-l border-gold/15' : ''}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                <GradientText animate className="font-serif text-3xl md:text-4xl lg:text-5xl font-light">
+                  {stat.val}{stat.suffix}
+                </GradientText>
+                <span className="font-display text-[9px] md:text-[10px] uppercase tracking-widest text-[#F0EBE3]/75">{stat.label}</span>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -203,42 +255,60 @@ export default function Home({ setCurrentPage }: HomeProps) {
       <section className="py-20 bg-ivory text-navy px-4 md:px-8 relative z-10 border-b border-gold/10">
         <div className="max-w-7xl mx-auto flex flex-col gap-12">
           {/* Header block */}
-          <div className="text-center max-w-2xl mx-auto flex flex-col gap-2">
-            <span className="text-[10px] font-display uppercase tracking-[0.25em] text-gold font-semibold">WHAT WE DO</span>
+          <motion.div
+            className="text-center max-w-2xl mx-auto flex flex-col gap-2"
+            initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+            viewport={{ once: true, margin: '-60px' }}
+          >
+            <ShimmerBadge text="WHAT WE DO" />
             <h2 className="font-serif text-4xl md:text-5xl tracking-wide font-medium">Five Ways We Transform Your World</h2>
             <p className="text-xs text-neutral-500 font-sans leading-relaxed max-w-lg mx-auto">
               From groundbreaking architectural structures to wellness-integrated Vastu and full-scale bespoke turnkey handovers.
             </p>
-          </div>
+          </motion.div>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {SERVICES.map((s, idx) => (
-              <div
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6"
+            variants={{ show: { transition: { staggerChildren: 0.09 } } }}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+          >
+            {SERVICES.map((s) => (
+              <motion.div
                 key={s.id}
-                onClick={() => handleNavClick('services')}
-                className="bg-white border border-gold/10 hover:border-gold p-8 flex flex-col justify-between group transition-all duration-400 hover:shadow-xl hover:-translate-y-1 cursor-pointer min-h-[360px]"
+                variants={{
+                  hidden: { opacity: 0, y: 32, filter: 'blur(8px)' },
+                  show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.65, ease: [0.25, 0.46, 0.45, 0.94] } }
+                }}
               >
-                <div className="flex flex-col gap-6">
-                  {/* Icon */}
-                  <div className="h-14 w-14 rounded-sm border border-gold/15 bg-ivory/30 flex items-center justify-center group-hover:bg-navy group-hover:border-navy transition-all duration-400">
-                    {getServiceIcon(s.id)}
+                <Tilt3DCard
+                  onClick={() => handleNavClick('services')}
+                  className="bg-white border border-gold/10 p-8 flex flex-col justify-between group min-h-[360px] h-full"
+                  maxTilt={8}
+                  glareColor="rgba(198, 164, 106, 0.45)"
+                >
+                  <div className="flex flex-col gap-6 relative z-10">
+                    <div className="h-14 w-14 rounded-sm border border-gold/15 bg-ivory/30 flex items-center justify-center group-hover:bg-navy group-hover:border-navy transition-all duration-400">
+                      {getServiceIcon(s.id)}
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <span className="font-serif text-lg font-light text-navy/40 leading-none">{s.num}</span>
+                      <h4 className="font-serif text-xl font-medium tracking-wide text-navy group-hover:text-gold transition-colors">{s.title}</h4>
+                      <p className="text-[11px] text-neutral-400 font-sans tracking-wide leading-relaxed">{s.subtitle}</p>
+                    </div>
                   </div>
-                  {/* Label */}
-                  <div className="flex flex-col gap-1.5">
-                    <span className="font-serif text-lg font-light text-navy/40 leading-none">{s.num}</span>
-                    <h4 className="font-serif text-xl font-medium tracking-wide text-navy group-hover:text-gold transition-colors">{s.title}</h4>
-                    <p className="text-[11px] text-neutral-400 font-sans tracking-wide leading-relaxed">{s.subtitle}</p>
+                  <div className="flex items-center gap-1.5 text-gold text-xs font-sans font-semibold uppercase tracking-wider mt-6 pt-4 border-t border-gold/5 group-hover:gap-3 transition-all relative z-10">
+                    <span>Explore</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </div>
-                </div>
-
-                <div className="flex items-center gap-1.5 text-gold text-xs font-sans font-semibold uppercase tracking-wider mt-6 pt-4 border-t border-gold/5 group-hover:gap-3 transition-all">
-                  <span>Explore</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </div>
-              </div>
+                </Tilt3DCard>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -246,9 +316,15 @@ export default function Home({ setCurrentPage }: HomeProps) {
       <section className="py-20 bg-ivory text-navy px-4 md:px-8 border-b border-gold/10 relative z-10">
         <div className="max-w-7xl mx-auto flex flex-col gap-12">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <motion.div
+            className="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
+            initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+            viewport={{ once: true, margin: '-60px' }}
+          >
             <div className="flex flex-col gap-2 text-left">
-              <span className="text-[10px] font-display uppercase tracking-[0.25em] text-gold font-semibold">OUR PORTFOLIO</span>
+              <ShimmerBadge text="OUR PORTFOLIO" />
               <h2 className="font-serif text-4xl md:text-5xl tracking-wide font-medium">Spaces Brought To Life</h2>
               <p className="text-xs text-neutral-500 font-sans max-w-md mt-1">
                 Every project built by Living Home is a bespoke visual narrative tailored precisely to families across India.
@@ -260,12 +336,19 @@ export default function Home({ setCurrentPage }: HomeProps) {
             >
               See All Case Studies
             </button>
-          </div>
+          </motion.div>
 
           {/* Mosaic Gallery - 3 projects asymmetric */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 select-none">
+          <motion.div
+            className="grid grid-cols-1 lg:grid-cols-12 gap-6 select-none"
+            variants={{ show: { transition: { staggerChildren: 0.15 } } }}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+          >
             {/* Project 1 (Large - 7 columns) */}
-            <div 
+            <motion.div
+              variants={{ hidden: { opacity: 0, scale: 0.97, filter: 'blur(10px)' }, show: { opacity: 1, scale: 1, filter: 'blur(0px)', transition: { duration: 0.8 } } }}
               onClick={() => handleNavClick('portfolio')}
               className="lg:col-span-7 h-[350px] md:h-[450px] relative overflow-hidden bg-navy group cursor-pointer"
             >
@@ -286,12 +369,15 @@ export default function Home({ setCurrentPage }: HomeProps) {
                   {PROJECTS[0].description}
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Side Grid - 2 stacked projects (5 columns) */}
-            <div className="lg:col-span-5 flex flex-col gap-6">
+            <motion.div
+              variants={{ hidden: { opacity: 0, x: 20, filter: 'blur(10px)' }, show: { opacity: 1, x: 0, filter: 'blur(0px)', transition: { duration: 0.8 } } }}
+              className="lg:col-span-5 flex flex-col gap-6"
+            >
               {PROJECTS.slice(1, 3).map((proj) => (
-                <div 
+                <div
                   key={proj.id}
                   onClick={() => handleNavClick('portfolio')}
                   className="h-[212px] relative overflow-hidden bg-navy group cursor-pointer"
@@ -314,8 +400,8 @@ export default function Home({ setCurrentPage }: HomeProps) {
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -339,43 +425,44 @@ export default function Home({ setCurrentPage }: HomeProps) {
 
           {/* Right structured cards */}
           <div className="lg:col-span-7 flex flex-col gap-8">
-            <div className="text-left flex flex-col gap-1.5">
-              <span className="text-[10px] font-display uppercase tracking-[0.25em] text-gold font-semibold">WHY US</span>
+            <motion.div
+              className="text-left flex flex-col gap-1.5"
+              initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+              viewport={{ once: true, margin: '-60px' }}
+            >
+              <ShimmerBadge text="WHY US" />
               <h2 className="font-serif text-4xl md:text-5xl tracking-wide font-medium">Designed Around You. Built to Last.</h2>
               <p className="text-xs text-neutral-500 font-sans">
                 We design spaces worthy of your life by adhering to structural honesty, premium materials, and complete financial and deadline transparency.
               </p>
-            </div>
+            </motion.div>
 
-            {/* 4 differentiators stack with elegant left-border */}
-            <div className="flex flex-col gap-6">
-              <div className="border-l-2 border-gold pl-6 flex flex-col gap-1 py-1">
-                <h5 className="font-serif text-lg text-navy font-semibold">Bespoke Architectural Curation, No Templates</h5>
-                <p className="text-xs text-neutral-500 font-sans leading-relaxed">
-                  Every estate begins from absolute zero. We understand how your family breathes, rather than overlaying cookie-cutter floor plans.
-                </p>
-              </div>
-
-              <div className="border-l-2 border-gold pl-6 flex flex-col gap-1 py-1">
-                <h5 className="font-serif text-lg text-navy font-semibold">End-To-End Structural Accountability</h5>
-                <p className="text-xs text-neutral-500 font-sans leading-relaxed">
-                  We maintain in-house engineers, decorators, and project supervisors. Absolutely no sub-contracting friction or surprises.
-                </p>
-              </div>
-
-              <div className="border-l-2 border-gold pl-6 flex flex-col gap-1 py-1">
-                <h5 className="font-serif text-lg text-navy font-semibold">Flawless Modern Vastu Integration</h5>
-                <p className="text-xs text-neutral-500 font-sans leading-relaxed">
-                  We are one of the very few boutique studios globally combining architectural purity with ancient energy vectors seamlessly.
-                </p>
-              </div>
-
-              <div className="border-l-2 border-gold pl-6 flex flex-col gap-1 py-1">
-                <h5 className="font-serif text-lg text-navy font-semibold">Crystal-Clear Budget and Timeline Caps</h5>
-                <p className="text-xs text-neutral-500 font-sans leading-relaxed">
-                  Every material procurement and milestone Gantt chart is audited in shared client vaults. No sliding hidden costs.
-                </p>
-              </div>
+            {/* 4 differentiators stack with animated hover glow */}
+            <div className="flex flex-col gap-5">
+              {[
+                { title: 'Bespoke Architectural Curation, No Templates', desc: 'Every estate begins from absolute zero. We understand how your family breathes, rather than overlaying cookie-cutter floor plans.' },
+                { title: 'End-To-End Structural Accountability', desc: 'We maintain in-house engineers, decorators, and project supervisors. Absolutely no sub-contracting friction or surprises.' },
+                { title: 'Flawless Modern Vastu Integration', desc: 'One of very few boutique studios globally combining architectural purity with ancient energy vectors seamlessly.' },
+                { title: 'Crystal-Clear Budget and Timeline Caps', desc: 'Every material procurement and milestone Gantt chart is audited in shared client vaults. No sliding hidden costs.' },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1, duration: 0.55 }}
+                  viewport={{ once: true }}
+                  className="group relative pl-6 py-3 flex flex-col gap-1 cursor-default"
+                >
+                  {/* Animated left border */}
+                  <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-gold/20 via-gold to-gold/20 group-hover:via-gold/80 transition-all duration-500" />
+                  {/* Hover bg fill */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-r-sm" />
+                  <h5 className="font-serif text-lg text-navy font-semibold relative z-10 group-hover:text-gold transition-colors duration-300">{item.title}</h5>
+                  <p className="text-xs text-neutral-500 font-sans leading-relaxed relative z-10">{item.desc}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
@@ -384,8 +471,8 @@ export default function Home({ setCurrentPage }: HomeProps) {
       {/* 6. PLAY SHOWREEL MOVEMENT BLOCK (Now using dynamic ScrollExpandMedia!) */}
       <ScrollExpandMedia
         mediaType="video"
-        mediaSrc="https://me7aitdbxq.ufs.sh/f/2wsMIGDMQRdYuZ5R8ahEEZ4aQK56LizRdfBSqeDMsmUIrJN1"
-        bgImageSrc="/src/assets/images/luxury_villa_bg_1781686084938.jpg"
+        mediaSrc="/videos/minimalist_living_room_calm.mp4"
+        bgImageSrc="/src/assets/images/luxury_villa_new.png"
         title="Cinematic Architecture"
         date="Bespoke Showcase"
         scrollToExpand="Scroll down to expand presentation"
@@ -433,7 +520,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
         <div className="max-w-7xl mx-auto flex flex-col gap-12">
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto flex flex-col gap-1">
-            <span className="text-[10px] font-display uppercase tracking-[0.25em] text-gold font-semibold">EXPERIENCE TRANSFORMATIONS</span>
+            <ShimmerBadge text="EXPERIENCE TRANSFORMATIONS" />
             <h2 className="font-serif text-4xl md:text-5xl tracking-wide font-medium">The Living Home Difference</h2>
             <p className="text-xs text-neutral-500 font-sans max-w-md mx-auto mt-1">
               Drag the interactive sliders to compare the raw brick site with our completed finished luxury handovers.
@@ -471,26 +558,34 @@ export default function Home({ setCurrentPage }: HomeProps) {
       <section className="py-20 bg-ivory text-navy px-4 md:px-8 relative z-10 border-b border-gold/10">
         <div className="max-w-6xl mx-auto flex flex-col gap-12">
           <div className="text-center flex flex-col gap-1 max-w-xl mx-auto">
-            <span className="text-[10px] font-display uppercase tracking-[0.25em] text-gold font-semibold">CLIENT ADVOCACY</span>
+            <ShimmerBadge text="CLIENT ADVOCACY" />
             <h2 className="font-serif text-4xl tracking-wide font-medium">What Our Clients Say</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
             <div className="absolute top-0 left-0 text-gold/5 font-serif text-[180px] -translate-y-24 select-none pointer-events-none leading-none">“</div>
             {TESTIMONIALS.map((t) => (
-              <div key={t.id} className="bg-white border-t-2 border-gold p-8 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-center gap-1.5 text-gold">
+              <div key={t.id}>
+              <SpotlightCard
+                className="relative bg-white/70 backdrop-blur-md border border-gold/20 p-8 flex flex-col justify-between transition-all duration-500 hover:[animation:glow-pulse_2.5s_ease-in-out_infinite]"
+                spotlightColor="rgba(198, 164, 106, 0.13)"
+                spotlightSize={380}
+              >
+                {/* Top gold accent bar */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold to-transparent" />
+                <div className="flex flex-col gap-4 relative z-10">
+                  <div className="flex items-center gap-1 text-gold">
                     {[...Array(t.rating)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
                   </div>
                   <p className="font-serif italic text-base text-neutral-700 leading-relaxed">
                     "{t.quote}"
                   </p>
                 </div>
-                <div className="flex flex-col gap-0.5 mt-6 pt-4 border-t border-gold/5">
+                <div className="flex flex-col gap-0.5 mt-6 pt-4 border-t border-gold/10 relative z-10">
                   <span className="text-xs font-sans font-bold text-navy uppercase tracking-wider">{t.author}</span>
                   <span className="text-[10px] font-mono text-neutral-400 capitalize">{t.projectTag} &nbsp;|&nbsp; {t.city}</span>
                 </div>
+              </SpotlightCard>
               </div>
             ))}
           </div>
@@ -503,7 +598,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div className="flex flex-col gap-1.5 text-left">
-              <span className="text-[10px] font-display uppercase tracking-[0.25em] text-gold font-semibold">DESIGN JOURNAL</span>
+              <ShimmerBadge text="DESIGN JOURNAL" />
               <h2 className="font-serif text-4xl tracking-wide font-medium">Insights and Inspirations</h2>
             </div>
             <button
@@ -516,10 +611,12 @@ export default function Home({ setCurrentPage }: HomeProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {BLOG_POSTS.slice(0, 3).map((post) => (
-              <div 
-                key={post.id}
+              <div key={post.id}>
+              <Tilt3DCard
                 onClick={() => handleNavClick('blog')}
-                className="bg-white border border-gold/5 flex flex-col justify-between group cursor-pointer shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white border border-gold/5 flex flex-col justify-between group h-full"
+                maxTilt={6}
+                glareColor="rgba(198, 164, 106, 0.3)"
               >
                 <div>
                   <div className="h-48 overflow-hidden bg-navy relative">
@@ -544,10 +641,11 @@ export default function Home({ setCurrentPage }: HomeProps) {
                   </div>
                 </div>
 
-                <div className="px-6 pb-6 pt-4 border-t border-gold/5 flex items-center justify-between text-[11px] text-navy font-semibold uppercase tracking-wider">
+                <div className="px-6 pb-6 pt-4 border-t border-gold/5 flex items-center justify-between text-[11px] text-navy font-semibold uppercase tracking-wider relative z-10">
                   <span className="text-gold">Read Full Article</span>
                   <span className="font-mono text-[10px] text-zinc-400 font-normal">{post.readTime}</span>
                 </div>
+              </Tilt3DCard>
               </div>
             ))}
           </div>
@@ -577,16 +675,28 @@ export default function Home({ setCurrentPage }: HomeProps) {
       </section>
 
       {/* 13. CONVERSATION CONSULT banner */}
-      <section className="relative py-20 bg-navy text-ivory flex items-center justify-center text-center z-13 selection:bg-gold selection:text-navy">
+      <section className="relative py-20 text-ivory flex items-center justify-center text-center z-13 selection:bg-gold selection:text-navy overflow-hidden">
+        {/* Animated gradient background */}
         <div
-          className="absolute inset-0 w-full h-full object-cover opacity-20 select-none pointer-events-none"
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(135deg, #0a1628 0%, #10223B 35%, #1a3356 60%, #10223B 80%, #0a1628 100%)',
+            backgroundSize: '300% 300%',
+            animation: 'gradient-flow 8s ease infinite',
+          }}
+        />
+        <div
+          className="absolute inset-0 w-full h-full object-cover opacity-10 select-none pointer-events-none"
           style={{
             backgroundImage: `url(${IMAGES.heroRoom})`,
             backgroundPosition: 'center',
             backgroundSize: 'cover',
+            mixBlendMode: 'overlay',
           }}
         />
-        <div className="absolute inset-0 bg-[#0c1a2f]/90" />
+        {/* Gold light orbs */}
+        <div className="absolute top-[-80px] left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-gold/8 blur-[80px] pointer-events-none" />
+        <AmbientParticles count={35} color="198, 164, 106" className="z-[1] opacity-60" />
 
         <div className="max-w-2xl mx-auto relative z-25 px-4 flex flex-col items-center gap-4">
           <span className="text-[10px] text-gold font-display uppercase tracking-[0.2em] font-medium mb-1">GET IN TOUCH</span>
@@ -596,19 +706,23 @@ export default function Home({ setCurrentPage }: HomeProps) {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 mt-6">
-            <button
-              onClick={() => handleNavClick('contact')}
-              className="bg-gold text-navy text-xs font-sans font-semibold uppercase tracking-[0.15em] py-4 px-8 rounded-sm hover:bg-white hover:text-navy transition-all duration-400 shadow-md"
-            >
-              Start Conversation
-            </button>
-            <a
-              href="tel:+911234567890"
-              className="border border-ivory/30 text-xs font-sans font-semibold uppercase tracking-[0.15em] py-4 px-8 rounded-sm hover:border-gold hover:text-gold transition-colors flex items-center gap-2"
-            >
-              <Phone className="w-3.5 h-3.5" />
-              <span>Call +91 12345 67890</span>
-            </a>
+            <Magnetic strength={0.4}>
+              <button
+                onClick={() => handleNavClick('contact')}
+                className="bg-gold text-navy text-xs font-sans font-semibold uppercase tracking-[0.15em] py-4 px-10 rounded-sm hover:bg-white hover:text-navy transition-all duration-400 shadow-[0_0_30px_rgba(198,164,106,0.4)] hover:shadow-[0_0_50px_rgba(198,164,106,0.6)]"
+              >
+                Start Conversation
+              </button>
+            </Magnetic>
+            <Magnetic strength={0.4}>
+              <a
+                href="tel:+911234567890"
+                className="border border-ivory/30 text-xs font-sans font-semibold uppercase tracking-[0.15em] py-4 px-8 rounded-sm hover:border-gold hover:text-gold transition-colors flex items-center gap-2"
+              >
+                <Phone className="w-3.5 h-3.5" />
+                <span>Call +91 12345 67890</span>
+              </a>
+            </Magnetic>
           </div>
         </div>
       </section>

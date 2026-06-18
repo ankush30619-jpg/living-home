@@ -8,6 +8,7 @@ import { Page } from '../types';
 import { BLOG_POSTS, IMAGES } from '../data';
 import { Bookmark, Sparkles, ChevronRight, Mail, Compass } from 'lucide-react';
 import { motion } from 'motion/react';
+import { ParticleHeroSection } from '../components/ui/particle-hero';
 
 interface BlogProps {
   setCurrentPage: (page: Page) => void;
@@ -185,6 +186,14 @@ export default function Blog({ setCurrentPage }: BlogProps) {
           )}
         </div>
       </section>
+
+      {/* Studio brand particle visual */}
+      <ParticleHeroSection
+        eyebrow="DESIGN JOURNAL"
+        title="Perspectives"
+        subtitle="Insights · Architecture · Craft"
+        heightClass="h-[500px]"
+      />
 
       {/* 4. NEWSLETTER SUBSCRIBE CARD (Slick deep field, borders only) */}
       <section className="py-20 bg-navy text-ivory px-4 md:px-8 relative z-10 selection:bg-gold selection:text-navy border-b border-gold/25">

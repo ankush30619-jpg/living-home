@@ -6,6 +6,8 @@
 import { Page } from '../types';
 import { IMAGES } from '../data';
 import { Star, MessageSquare, Quote, ShieldCheck, MapPin, Compass } from 'lucide-react';
+import { StaggerTestimonials } from '../components/ui/stagger-testimonials';
+import { ParticleHeroSection } from '../components/ui/particle-hero';
 
 interface TestimonialsProps {
   setCurrentPage: (page: Page) => void;
@@ -134,7 +136,27 @@ export default function Testimonials({ setCurrentPage }: TestimonialsProps) {
         </div>
       </section>
 
-      {/* 3. TRUST reinforcement */}
+      {/* 3. INTERACTIVE STAGGER CAROUSEL */}
+      <section className="py-20 bg-ivory relative z-10 border-b border-gold/10">
+        <div className="max-w-7xl mx-auto flex flex-col gap-10">
+          <div className="text-center flex flex-col gap-1 max-w-md mx-auto px-4">
+            <span className="text-[10px] font-display uppercase tracking-[0.2em] text-gold font-semibold">VOICES OF TRUST</span>
+            <h2 className="font-serif text-2xl md:text-3xl text-navy font-semibold tracking-wide">What Our Clients Say</h2>
+            <p className="text-xs text-neutral-500 font-sans leading-relaxed mt-1">Click any card or use arrows to explore 500+ client stories.</p>
+          </div>
+          <StaggerTestimonials />
+        </div>
+      </section>
+
+      {/* Studio brand particle visual */}
+      <ParticleHeroSection
+        eyebrow="CLIENT STORIES"
+        title="500+ Families"
+        subtitle="Trusted · Crafted · Delivered"
+        heightClass="h-[500px]"
+      />
+
+      {/* 4. TRUST reinforcement */}
       <section className="py-20 bg-navy text-ivory text-center px-4 relative z-10 border-b border-gold/25 selection:bg-gold selection:text-navy">
         <div className="max-w-2xl mx-auto flex flex-col items-center gap-4">
           <ShieldCheck className="w-12 h-12 text-gold animate-[pulse_2s_infinite]" />
@@ -145,7 +167,7 @@ export default function Testimonials({ setCurrentPage }: TestimonialsProps) {
         </div>
       </section>
 
-      {/* 4. BOOK consultation */}
+      {/* 5. BOOK consultation */}
       <section className="py-20 bg-ivory text-center px-4 relative z-10">
         <div className="max-w-xl mx-auto flex flex-col items-center gap-4">
           <h2 className="font-serif text-3xl md:text-4xl text-navy font-semibold tracking-wide">Become Our Next Success Story</h2>

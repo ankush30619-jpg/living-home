@@ -11,6 +11,7 @@ import {
   MapPin, Clock, CalendarDays, Check
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { ParticleCanvasBg } from '../components/ui/particle-canvas-bg';
 
 interface ContactProps {
   setCurrentPage: (page: Page) => void;
@@ -81,6 +82,10 @@ export default function Contact({ setCurrentPage }: ContactProps) {
 
   return (
     <div className="w-full relative">
+      {/* Gold particle canvas — page background layer */}
+      <div className="absolute inset-0 pointer-events-none z-0 opacity-30">
+        <ParticleCanvasBg />
+      </div>
       {/* 1. SEPARATED SPLIT HERO */}
       <section className="relative h-auto min-h-[55vh] w-full flex flex-col lg:flex-row z-10 select-none">
         {/* Left deep-navy contact parameters pane */}

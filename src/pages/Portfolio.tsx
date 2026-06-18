@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import { ImageTrail } from '../components/ui/image-trail';
 import { ArcGalleryHero } from '../components/ui/arc-gallery-hero-component';
+import { ScrollImagePair } from '../components/ui/scroll-image-pair';
 
 interface PortfolioProps {
   setCurrentPage: (page: Page) => void;
@@ -183,6 +184,14 @@ export default function Portfolio({ setCurrentPage }: PortfolioProps) {
           )}
         </div>
       </section>
+
+      {/* Scroll image pair — gallery → case study transition */}
+      <ScrollImagePair
+        image1={IMAGES.farmhouseExterior}
+        image2={IMAGES.farmPergola}
+        alt1="Farmhouse exterior"
+        alt2="Farm pergola space"
+      />
 
       {/* 3. CASE STUDY SPOTLIGHT FEATURE (Marquee focus Oberoi) */}
       <section className="py-20 bg-navy text-ivory border-b border-gold/25 px-4 md:px-8 relative z-10">

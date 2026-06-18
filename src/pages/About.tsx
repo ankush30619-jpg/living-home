@@ -7,6 +7,7 @@ import { Page } from '../types';
 import { IMAGES } from '../data';
 import { Compass, PenTool, Layout, Award, MapPin, Eye, Heart, Leaf } from 'lucide-react';
 import Floating, { FloatingElement } from '../components/ui/parallax-floating';
+import { ParticleHeroSection } from '../components/ui/particle-hero';
 
 interface AboutProps {
   setCurrentPage: (page: Page) => void;
@@ -167,6 +168,14 @@ export default function About({ setCurrentPage }: AboutProps) {
           </div>
         </div>
       </section>
+
+      {/* Studio identity — ParticleHero visual break */}
+      <ParticleHeroSection
+        eyebrow="OUR PHILOSOPHY"
+        title="Living Home"
+        subtitle="Where Architecture Meets Soul"
+        heightClass="h-[580px]"
+      />
 
       {/* 4. GUIDED CORE VALUES */}
       <section className="py-20 bg-ivory text-navy px-4 md:px-8 relative z-10 border-b border-gold/10">
